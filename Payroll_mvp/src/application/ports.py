@@ -10,3 +10,9 @@ class CalculationRepositoryPort(ABC):
     @abstractmethod
     async def save(self, response: PayrollResponse) -> None:
         raise NotImplementedError
+    
+class TextExtractorPort(ABC):
+    """Puerto para extraer texto de archivos (PDF, DOCX, etc.)"""
+    @abstractmethod
+    async def extract_text(self, file_content: bytes) -> str:
+        raise NotImplementedError

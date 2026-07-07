@@ -1,11 +1,26 @@
 {
   "info": {
-    "name": "Payroll MVP",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "name": "S.A.R.A - Motor Soberano de Liquidaciones (MVP)",
+    "description": "Colección actualizada con validación para box_office_total > 0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
   },
   "item": [
     {
-      "name": "Calculate Payroll",
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Calcular desde texto plano",
       "request": {
         "method": "POST",
         "header": [
@@ -16,43 +31,50 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"contract_text\": \"Contrato con Maria Gomez por prestación de servicios artísticos. Se le pagará el 20% de la taquilla neta de cada función. El actor se compromete a asistir a todas las funciones.\",\n    \"box_office_total\": 10000000\n}"
+          "raw": "{\n  \"contract_text\": \"Contrato con Maria Gomez. Se le pagará el 20% de la taquilla neta.\",\n  \"box_office_total\": 10000000\n}"
         },
         "url": {
-          "raw": "http://localhost:8000/api/v1/payroll/calculate",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8000",
-          "path": [
-            "api",
-            "v1",
-            "payroll",
-            "calculate"
-          ]
+          "raw": "{{base_url}}/api/v1/payroll/calculate",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payroll", "calculate"]
         }
       },
       "response": []
     },
     {
-      "name": "Health Check",
+      "name": "Calcular desde PDF",
       "request": {
-        "method": "GET",
+        "method": "POST",
         "header": [],
-        "url": {
-          "raw": "http://localhost:8000/health",
-          "protocol": "http",
-          "host": [
-            "localhost"
-          ],
-          "port": "8000",
-          "path": [
-            "health"
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": ""
+            },
+            {
+              "key": "box_office_total",
+              "value": "10000000",
+              "type": "text",
+              "description": "Debe ser mayor que 0"
+            }
           ]
+        },
+        "url": {
+          "raw": "{{base_url}}/api/v1/payroll/calculate-from-pdf",
+          "host": ["{{base_url}}"],
+          "path": ["api", "v1", "payroll", "calculate-from-pdf"]
         }
       },
       "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000"
     }
   ]
 }
