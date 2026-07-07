@@ -1,0 +1,58 @@
+{
+  "info": {
+    "name": "Payroll MVP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Calculate Payroll",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"contract_text\": \"Contrato con Maria Gomez por prestación de servicios artísticos. Se le pagará el 20% de la taquilla neta de cada función. El actor se compromete a asistir a todas las funciones.\",\n    \"box_office_total\": 10000000\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/v1/payroll/calculate",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "api",
+            "v1",
+            "payroll",
+            "calculate"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/health",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8000",
+          "path": [
+            "health"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
