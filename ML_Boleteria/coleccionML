@@ -1,0 +1,131 @@
+{
+  "info": {
+    "_postman_id": "sara-ml-boleteria-v2",
+    "name": "S.A.R.A. - ML Boletería (Datos Reales)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Health Check (GET /)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": ["{{baseUrl}}"],
+          "path": [""]
+        }
+      }
+    },
+    {
+      "name": "2. Teatro Pequeño - Obra Nueva (Cold Start)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"obra\": {\n    \"nombre\": \"El principito (versión infantil)\",\n    \"genero\": \"Infantil\",\n    \"popularidad_elenco\": 6.0,\n    \"tiene_premios\": true\n  },\n  \"temporada\": {\n    \"total_funciones_programadas\": 10,\n    \"numero_funcion_actual\": 1,\n    \"fecha_funcion\": \"2026-07-25T16:00:00\"\n  },\n  \"contexto_actual\": {\n    \"boletas_vendidas_hoy\": 0,\n    \"aforo_total_sala\": 80\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/boleteria/predict",
+          "host": ["{{baseUrl}}"],
+          "path": ["boleteria", "predict"]
+        },
+        "description": "Teatro pequeño (80 butacas). Obra nueva, sin ventas previas. El modelo usará solo el modelo global (factor=1.0)."
+      }
+    },
+    {
+      "name": "3. Teatro Pequeño - Obra en Mitad de Temporada (Mid-Season)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"obra\": {\n    \"nombre\": \"El principito (versión infantil)\",\n    \"genero\": \"Infantil\",\n    \"popularidad_elenco\": 6.0,\n    \"tiene_premios\": true\n  },\n  \"temporada\": {\n    \"total_funciones_programadas\": 10,\n    \"numero_funcion_actual\": 6,\n    \"fecha_funcion\": \"2026-07-25T16:00:00\"\n  },\n  \"contexto_actual\": {\n    \"boletas_vendidas_hoy\": 30,\n    \"aforo_total_sala\": 80\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/boleteria/predict",
+          "host": ["{{baseUrl}}"],
+          "path": ["boleteria", "predict"]
+        },
+        "description": "Teatro pequeño (80 butacas). Obra en mitad de temporada (función 6 de 10). Ya lleva 30 boletas vendidas. El modelo ajustará con el factor de momentum."
+      }
+    },
+    {
+      "name": "4. Teatro Mediano - Obra con Datos Reales (Mid-Season)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"obra\": {\n    \"nombre\": \"Hamlet\",\n    \"genero\": \"Clasico\",\n    \"popularidad_elenco\": 8.0,\n    \"tiene_premios\": true\n  },\n  \"temporada\": {\n    \"total_funciones_programadas\": 30,\n    \"numero_funcion_actual\": 15,\n    \"fecha_funcion\": \"2026-07-11T20:00:00\"\n  },\n  \"contexto_actual\": {\n    \"boletas_vendidas_hoy\": 120,\n    \"aforo_total_sala\": 300\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/boleteria/predict",
+          "host": ["{{baseUrl}}"],
+          "path": ["boleteria", "predict"]
+        },
+        "description": "Teatro mediano (300 butacas). Obra con alta popularidad y premios. Ya lleva 120 boletas vendidas (40% del aforo)."
+      }
+    },
+    {
+      "name": "5. Teatro Grande - Comedia con Alta Popularidad (Fin de Semana)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"obra\": {\n    \"nombre\": \"Stand-up Night\",\n    \"genero\": \"Stand-up\",\n    \"popularidad_elenco\": 9.5,\n    \"tiene_premios\": false\n  },\n  \"temporada\": {\n    \"total_funciones_programadas\": 8,\n    \"numero_funcion_actual\": 4,\n    \"fecha_funcion\": \"2026-07-11T21:00:00\"\n  },\n  \"contexto_actual\": {\n    \"boletas_vendidas_hoy\": 200,\n    \"aforo_total_sala\": 500\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/boleteria/predict",
+          "host": ["{{baseUrl}}"],
+          "path": ["boleteria", "predict"]
+        },
+        "description": "Teatro grande (500 butacas). Stand-up con elenco muy popular (9.5). Fecha sábado noche, alta demanda esperada. Ya lleva 200 boletas vendidas."
+      }
+    },
+    {
+      "name": "6. Teatro Pequeño - Datos Ingresados Manualmente (Usuario)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"obra\": {\n    \"nombre\": \"La casa de Bernarda Alba\",\n    \"genero\": \"Drama\",\n    \"popularidad_elenco\": 7.2,\n    \"tiene_premios\": true\n  },\n  \"temporada\": {\n    \"total_funciones_programadas\": 15,\n    \"numero_funcion_actual\": 8,\n    \"fecha_funcion\": \"2026-07-18T20:00:00\"\n  },\n  \"contexto_actual\": {\n    \"boletas_vendidas_hoy\": 25,\n    \"aforo_total_sala\": 120\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/boleteria/predict",
+          "host": ["{{baseUrl}}"],
+          "path": ["boleteria", "predict"]
+        },
+        "description": "Teatro pequeño (120 butacas). El usuario ingresa los datos manualmente (no viene de API de tiquetería). Ideal para productores que no tienen integración digital."
+      }
+    },
+    {
+      "name": "7. Reentrenar Modelo (con datos históricos reales)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": { "raw": { "language": "json" } }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/boleteria/retrain",
+          "host": ["{{baseUrl}}"],
+          "path": ["boleteria", "retrain"]
+        },
+        "description": "Reentrena el modelo con todos los datos históricos almacenados en data/historico_ventas.csv. Requiere al menos 30 registros."
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000",
+      "type": "string"
+    }
+  ]
+}

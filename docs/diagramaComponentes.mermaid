@@ -1,0 +1,19 @@
+graph LR
+    subgraph "Cliente"
+        P[Postman / Frontend]
+    end
+    
+    subgraph "Backend S.A.R.A"
+        API[FastAPI]
+        DOM[Domain Layer]
+        INF[Infrastructure]
+    end
+    
+    subgraph "Servicios Externos"
+        OLL[Ollama]
+    end
+    
+    P -->|HTTP| API
+    API -->|Depende| DOM
+    API -->|Usa| INF
+    INF -->|Llama| OLL

@@ -1,0 +1,32 @@
+graph TB
+    subgraph "Presentación (Adaptador Primario)"
+        A[FastAPI Controller]
+    end
+    
+    subgraph "Aplicación (Puertos)"
+        B[AIExtractorPort]
+        C[TextExtractorPort]
+        D[CalculationRepositoryPort]
+    end
+    
+    subgraph "Dominio"
+        E[PayrollCalculator]
+    end
+    
+    subgraph "Infraestructura (Adaptadores Secundarios)"
+        F[OllamaAdapter]
+        G[PDFTextExtractor]
+        H[MemoryRepository]
+    end
+    
+    A -->|Depende de| E
+    E -->|Usa| B
+    E -->|Usa| D
+    A -->|Usa| C
+    
+    B -.->|Implementa| F
+    C -.->|Implementa| G
+    D -.->|Implementa| H
+    
+    F -->|Llama a| I[Ollama API]
+    G -->|Lee| J[Archivo PDF]

@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant Cliente
+    participant FastAPI
+    participant PDFExtractor
+    participant OllamaExtractor
+    participant Calculator
+    participant Repository
+
+    Cliente->>FastAPI: POST /calculate-from-pdf (PDF + total)
+    FastAPI->>PDFExtractor: extract_text(file)
+    PDFExtractor-->>FastAPI: contract_text
+    FastAPI->>OllamaExtractor: extract_rules(text)
+    OllamaExtractor-->>FastAPI: ContractRules (actor, rule, value)
+    FastAPI->>Calculator: calculate(request)
+    Calculator->>Repository: save(response)
+    Calculator-->>FastAPI: PayrollResponse
+    FastAPI-->>Cliente: JSON con liquidación
